@@ -1,5 +1,13 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background: rgba(176,197,240,0.39);
+    padding: 20px;
 }
+
+
 
 
