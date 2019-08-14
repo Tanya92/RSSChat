@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import './app.css';
 
 class Index extends React.Component {
