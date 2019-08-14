@@ -10,7 +10,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
     grid-row: 3;
 }
 
@@ -20,8 +19,6 @@
     margin: 0;
 }
 
-
-
 .info-link {
     text-decoration: none;
     text-underline: none;
@@ -29,7 +26,6 @@
 }
 
 .email-link {
-    width: 250px;
     align-items: center;
 }
 
