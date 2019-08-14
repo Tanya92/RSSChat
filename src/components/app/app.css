@@ -5,7 +5,12 @@ body, html {
 
 body {
     background: rgba(176,197,240,0.39);
-    padding: 20px;
+}
+
+#root {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
 }
 
 

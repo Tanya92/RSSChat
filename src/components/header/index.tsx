@@ -1,7 +1,8 @@
 import './header.css';
 import * as React from 'react';
 
-export default class Header extends React.Component {
+
+export default class Header extends React.Component<object> {
     render() {
         return (
             <div className="header-container">
