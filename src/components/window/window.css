@@ -1,0 +1,12 @@
+.window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messages {
+    width: 90%;
+    margin: 0 auto;
+    height: 80%;
+    background: rgba(244,255,245,0.99);
+}

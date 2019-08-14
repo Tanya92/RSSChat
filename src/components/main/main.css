@@ -1,0 +1,9 @@
+.main-container {
+    display: grid;
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto;
+    height: 90%;
+    grid-template-rows: 80% 20%;
+    overflow-y: auto;
+}
