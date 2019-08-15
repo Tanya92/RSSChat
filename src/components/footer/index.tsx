@@ -9,13 +9,13 @@ export default class Footer extends React.Component<object> {
                 <div className="links-container">
                     <div className="icons-container">
                         <a href="https://github.com/Tanya92" target="_blank" className="info-link">
-                            <img src="../assets/github-logo.svg" alt="github_icon" className="icon"/>
+                            <img src="/assets/github-logo.svg" alt="github_icon" className="icon"/>
                         </a>
                         <a href="https://t.me/tatsiana_mironchyk" target="_blank" className="info-link">
-                            <img src="../assets/telegram.svg" alt="telegram_icon" className="icon"/>
+                            <img src="/assets/telegram.svg" alt="telegram_icon" className="icon"/>
                         </a>
                         <a href="mailto:tatiana_mironchik@tut.by" target="_blank" className="info-link">
-                            <img src="../assets/mail_logo.svg" alt="mail_icon" className="icon"/>
+                            <img src="/assets/mail_logo.svg" alt="mail_icon" className="icon"/>
                         </a>
                     </div>
                     <a href="mailto:tatiana_mironchik@tut.by" target="_blank" className="info-link email-link">
