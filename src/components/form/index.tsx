@@ -3,6 +3,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
+import {actions, Actions} from "~/data/reducer";
+import {State} from "~/data/models";
+import {connect} from "react-redux";
 
 const fontSize = '1.3rem';
 
@@ -37,9 +40,14 @@ const useStyles = makeStyles(theme => ({
     index: 5
 });
 
-export default function Form():JSX.Element {
-    const classes = useStyles({});
+function mapStateToProps (state:State) {
+    return {...state};
+}
 
+export default connect(mapStateToProps, actions)(Form);
+
+function Form (props: State): JSX.Element {
+    const classes = useStyles({});
         return (
             <form className={classes.container}>
                 <TextField
@@ -51,12 +59,15 @@ export default function Form():JSX.Element {
                     className={classes.textField}
                     variant="outlined"
                 />
-                <Button variant="contained" color="primary" className={classes.button}>
+                <Button variant="contained" color="primary" className={classes.button} disabled={!props.connected}>
                     Send
                     {/* This Button uses a Font Icon, see the installation instructions in the docs. */}
                     <Icon className={classes.rightIcon}>send</Icon>
                 </Button>
             </form>
         );
-
 }
+
+
+
+
