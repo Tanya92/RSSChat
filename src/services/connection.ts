@@ -1,3 +1,5 @@
+import {string} from "prop-types";
+
 class Connection {
     socket: WebSocket;
 
@@ -11,6 +13,10 @@ class Connection {
 
     onMessage(callback: EventListener): void {
         this.socket.addEventListener('message', callback);
+    }
+
+    sendMessage(data: string): void {
+        this.socket.send(data);
     }
 }
 

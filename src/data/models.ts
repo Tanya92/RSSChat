@@ -14,3 +14,8 @@ export class Message {
     id: string;
     time: number;
 }
+
+export interface SendMessage {
+    from: string,
+    message: string
+}
