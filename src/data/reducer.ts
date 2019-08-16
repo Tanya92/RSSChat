@@ -11,19 +11,21 @@ interface SetConnectedPayload {
     connected: boolean;
 }
 
-interface Interface {
-
+interface SetUserNamePayload {
+    userName: string;
 }
 
 export interface Actions {
     connect: () => Function,
     addMessages: (messages: Message[]) => Action<AddMessagesPayload>,
     setConnected: (connected: boolean) => Action<SetConnectedPayload>,
-    sendMessage: (from: string, message: string) => Function
+    sendMessage: (from: string, message: string) => Function,
+    setUserName: (userName: string) => Action<SetUserNamePayload>
 }
 
-function setUserName(userName:string):void {
+function persistUserName(userName:string):string {
     localStorage.userName = userName;
+    return userName;
 }
 
 function getUserName():string {
@@ -36,6 +38,7 @@ function getUserName():string {
 export const actions = createActions({
     ADD_MESSAGES: (messages: Message[]):object => ({messages}),
     SET_CONNECTED: (connected: boolean): object => ({connected}),
+    SET_USER_NAME: (userName: string): object => ({userName})
 }) as unknown as Actions;
 
 actions.connect = (): Function => (dispatch: Dispatch): void => {
@@ -55,7 +58,7 @@ actions.sendMessage = (from: string, message: string): Function => (): void => {
     connection.sendMessage(JSON.stringify({from, message} as SendMessage));
 };
 
-type ActionPayloads = AddMessagesPayload | SetConnectedPayload;
+type ActionPayloads = AddMessagesPayload | SetConnectedPayload| SetUserNamePayload;
 
 export const reducer = handleActions<State, ActionPayloads>({
     [actions.addMessages.toString()]: (state: State, action: Action<AddMessagesPayload>) => ({
@@ -66,4 +69,8 @@ export const reducer = handleActions<State, ActionPayloads>({
         ...state,
         connected: action.payload.connected
     }),
+    [actions.setUserName.toString()]: (state: State, action: Action<SetUserNamePayload>) => ({
+        ...state,
+        userName: persistUserName(action.payload.userName)
+    })
 }, new State(getUserName()));
