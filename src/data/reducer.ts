@@ -2,6 +2,7 @@ import {createActions, handleActions, Action} from "redux-actions";
 import {State, Message, SendMessage} from './models';
 import {Dispatch} from "redux";
 import {connection} from "~/services/connection";
+import {notifications} from "~/services/notification";
 
 interface AddMessagesPayload {
     messages: Message[]
@@ -57,7 +58,14 @@ actions.connect = (): Function => (dispatch: Dispatch): void => {
     });
 
     connection.onMessage((payload: MessageEvent) => {
-        dispatch(actions.addMessages(JSON.parse(payload.data)))
+        const messages = JSON.parse(payload.data) as Message[];
+        dispatch(actions.addMessages(messages));
+        if (messages.length > 1) {
+            notifications.notify('New notifications from RSS chat!: ' + messages.length);
+        } else {
+            const message = messages[0];
+            notifications.notify(message.from + "\n" + message.message);
+        }
     });
 };
 
