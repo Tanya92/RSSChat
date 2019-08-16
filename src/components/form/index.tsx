@@ -61,7 +61,6 @@ function Form (props: State): JSX.Element {
                 />
                 <Button variant="contained" color="primary" className={classes.button} disabled={!props.connected}>
                     Send
-                    {/* This Button uses a Font Icon, see the installation instructions in the docs. */}
                     <Icon className={classes.rightIcon}>send</Icon>
                 </Button>
             </form>

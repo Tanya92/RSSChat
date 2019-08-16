@@ -1,4 +1,3 @@
-import {string} from "prop-types";
 
 class Connection {
     socket: WebSocket;
