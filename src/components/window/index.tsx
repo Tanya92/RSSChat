@@ -17,7 +17,14 @@ class Window extends React.Component<State & Actions> {
        element.scrollTop = element.scrollHeight;
     }
 
-    showMessage(message: Message) {
+    formatMessage = (message: Message) => {
+        return {
+            __html: message.message.replace(/\n/g, '<br/>')
+        }
+
+    };
+
+    showMessage = (message: Message) => {
         const date = new Date(message.time);
         const options = {
             year: 'numeric', month: 'numeric', day: 'numeric',
@@ -26,11 +33,15 @@ class Window extends React.Component<State & Actions> {
         };
 
         return (
-            <div className="new-message" key={message.id}>
-                <span className="message-time">{date.toLocaleString('ru-RU', options)}</span>
-                <span className="message-author">{message.from}</span>
-                <span className="message-info">{message.message}</span>
+            <div style={{display: 'flex', justifyContent: this.props.userName === message.from ? 'flex-end': 'flex-start'}} key={message.id}>
+                <div className={this.props.userName === message.from ? "new-message my-message": "new-message"}>
+                    <span className="message-time">{date.toLocaleString('ru-RU', options)}</span>
+                    <span className="message-author">{message.from}</span>
+                    <span className="message-info" dangerouslySetInnerHTML={this.formatMessage(message)}/>
+                </div>
             </div>
+
+
         )
     }
     render() {

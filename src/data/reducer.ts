@@ -63,7 +63,9 @@ type ActionPayloads = AddMessagesPayload | SetConnectedPayload| SetUserNamePaylo
 export const reducer = handleActions<State, ActionPayloads>({
     [actions.addMessages.toString()]: (state: State, action: Action<AddMessagesPayload>) => ({
         ...state,
-        messages: state.messages.concat(action.payload.messages)
+        messages: state.messages.concat(action.payload.messages).sort((a: Message, b: Message) => {
+            return a.time - b.time;
+        })
     }),
     [actions.setConnected.toString()]: (state: State, action: Action<SetConnectedPayload>) => ({
         ...state,

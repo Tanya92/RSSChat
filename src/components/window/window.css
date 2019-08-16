@@ -21,9 +21,13 @@
     width: 40%;
     font-size: 1.5rem;
     margin: 15px;
-    padding: 5px;
+    padding: 15px;
 }
 
+.my-message {
+    background: rgba(87,249,216,0.99);
+
+}
 
 .message-time {
     color: #000066;

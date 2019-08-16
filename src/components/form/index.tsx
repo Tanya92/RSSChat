@@ -6,6 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import {actions, Actions} from "~/data/reducer";
 import {State} from "~/data/models";
 import {connect} from "react-redux";
+import {FormEvent} from "react";
 
 const fontSize = '1.3rem';
 
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
         lineHeight: parseFloat(fontSize) + 0.1 + 'rem'
     },
     button: {
-
+        maxHeight: '60px'
     },
     rightIcon: {
         marginLeft: theme.spacing(1),
@@ -44,12 +45,18 @@ function mapStateToProps (state:State) {
     return {...state};
 }
 
-export default connect(mapStateToProps, actions)(Form);
-
-function Form (props: State): JSX.Element {
+function Form (props: State & Actions): JSX.Element {
     const classes = useStyles({});
+
+    function onSubmit(event: FormEvent): void {
+        event.preventDefault();
+        const form = event.target as HTMLFormElement;
+        const input = form.message;
+        props.sendMessage(props.userName, input.value);
+        input.value='';
+    }
         return (
-            <form className={classes.container}>
+            <form className={classes.container} onSubmit={onSubmit}>
                 <TextField
                     label="Write a message"
                     InputLabelProps={{'classes': {formControl: classes.label}}}
@@ -58,14 +65,19 @@ function Form (props: State): JSX.Element {
                     multiline
                     className={classes.textField}
                     variant="outlined"
+                    name="message"
+                    required
                 />
-                <Button variant="contained" color="primary" className={classes.button} disabled={!props.connected}>
+                <Button variant="contained" color="primary" className={classes.button} disabled={!props.connected} type="submit">
                     Send
                     <Icon className={classes.rightIcon}>send</Icon>
                 </Button>
             </form>
         );
 }
+
+
+export default connect(mapStateToProps, actions)(Form);
 
 
 
