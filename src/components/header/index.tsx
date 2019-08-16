@@ -11,7 +11,7 @@ function mapStateToProps(state: State) {
 }
 
 class Header extends React.Component<State & Actions> {
-    render() {  console.log(this.props.userName)
+    render() {
         return (
             <div className="header-container">
                 <h1 className="header">Rolling Scopes School Chat</h1>

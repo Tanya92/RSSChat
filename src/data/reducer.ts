@@ -53,7 +53,7 @@ actions.connect = (): Function => (dispatch: Dispatch): void => {
     connection.connect();
 
     connection.onOpen(() => {
-        console.info('connection is open');
+
         dispatch(actions.setConnected(true));
     });
 
@@ -67,6 +67,10 @@ actions.connect = (): Function => (dispatch: Dispatch): void => {
             notifications.notify(message.from + "\n" + message.message);
         }
     });
+
+    connection.onClose(() => {
+        dispatch(actions.setConnected(false));
+    })
 };
 
 actions.sendMessage = (from: string, message: string): Function => (): void => {
@@ -84,7 +88,8 @@ export const reducer = handleActions<State, ActionPayloads>({
     }),
     [actions.setConnected.toString()]: (state: State, action: Action<SetConnectedPayload>) => ({
         ...state,
-        connected: action.payload.connected
+        connected: action.payload.connected,
+        messages: action.payload.connected ? []: state.messages
     }),
     [actions.setUserName.toString()]: (state: State, action: Action<SetUserNamePayload>) => ({
         ...state,
