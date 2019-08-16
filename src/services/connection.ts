@@ -3,7 +3,9 @@ class Connection {
     socket: WebSocket;
 
     connect(): void {
-        this.socket = new WebSocket('ws://st-chat.shas.tel');
+        if (!this.socket) {
+            this.socket = new WebSocket('ws://st-chat.shas.tel');
+        }
     }
 
     onOpen(callback: EventListener): void {

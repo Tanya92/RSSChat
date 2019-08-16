@@ -8,13 +8,18 @@ import {Ref, RefObject} from "react";
 class Window extends React.Component<State & Actions> {
     messagesContainer:RefObject<HTMLDivElement> = React.createRef();
 
+    scrollWindow = () => {
+        const element = this.messagesContainer.current;
+        element.scrollTop = element.scrollHeight;
+    };
+
     componentDidMount() {
         this.props.connect();
+        this.scrollWindow();
     }
 
     componentDidUpdate() {
-       const element = this.messagesContainer.current;
-       element.scrollTop = element.scrollHeight;
+       this.scrollWindow();
     }
 
     formatMessage = (message: Message) => {
@@ -36,7 +41,9 @@ class Window extends React.Component<State & Actions> {
             <div style={{display: 'flex', justifyContent: this.props.userName === message.from ? 'flex-end': 'flex-start'}} key={message.id}>
                 <div className={this.props.userName === message.from ? "new-message my-message": "new-message"}>
                     <span className="message-time">{date.toLocaleString('ru-RU', options)}</span>
-                    <span className="message-author">{message.from}</span>
+                    <span className="message-author">
+                        {this.props.userName === message.from ? `${message.from} (Me)`: message.from}
+                    </span>
                     <span className="message-info" dangerouslySetInnerHTML={this.formatMessage(message)}/>
                 </div>
             </div>
