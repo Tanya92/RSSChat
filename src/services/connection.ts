@@ -12,7 +12,7 @@ class Connection {
 
     connect(): void {
         if (!this.isConnected()) {
-            this.socket = new WebSocket('ws://st-chat.shas.tel');
+            this.socket = new WebSocket('wss://wssproxy.herokuapp.com/');
             this.socket.addEventListener('open', (event: Event) => {
                 this.openCallbacks.forEach(callback => {callback(event)});
                 console.info('connection is open');
