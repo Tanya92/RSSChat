@@ -68,7 +68,7 @@ function Form (props: State & Actions): JSX.Element {
                     name="message"
                     required
                 />
-                <Button variant="contained" color="primary" className={classes.button} disabled={!props.connected} type="submit">
+                <Button variant="contained" color="primary" className={classes.button} type="submit">
                     Send
                     <Icon className={classes.rightIcon}>send</Icon>
                 </Button>

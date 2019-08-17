@@ -1,7 +1,7 @@
 import './window.css';
 import * as React from 'react';
 import {connect} from "react-redux";
-import {Message, State} from "~/data/models";
+import {Message, SendMessage, State} from "~/data/models";
 import {Actions, actions} from "~/data/reducer";
 import {Ref, RefObject} from "react";
 
@@ -50,14 +50,31 @@ class Window extends React.Component<State & Actions> {
 
 
         )
-    }
+    };
+
+    showPendingMessage = (message: SendMessage, index: number) => {
+        return this.showMessage({
+            ...message,
+            id: String(index),
+            time: Date.now()
+        })
+    };
+
+
     render() {
         return (
             <div className="window">
                 <div className="messages"
                      ref={this.messagesContainer}
                 >
-                    {this.props.messages.map(this.showMessage)}
+                    {
+                        this.props.messages.
+                            map(this.showMessage).
+                            concat(
+                                this.props.pendingMessages.
+                                    map(this.showPendingMessage)
+                            )
+                    }
                 </div>
             </div>
         );

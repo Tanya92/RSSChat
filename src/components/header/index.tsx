@@ -10,11 +10,19 @@ function mapStateToProps(state: State) {
     return {...state};
 }
 
+
 class Header extends React.Component<State & Actions> {
+
+
+
     render() {
         return (
             <div className="header-container">
                 <h1 className="header">Rolling Scopes School Chat</h1>
+                <div
+                    className={this.props.connected ? "online-status": "offline-status"}
+                    hidden={!this.props.userName}
+                />
                 <p className="user-name" hidden={!this.props.userName}>{this.props.userName}</p>
                 <Button
                     variant="contained"

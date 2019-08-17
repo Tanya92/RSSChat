@@ -6,10 +6,17 @@ class Connection {
     messageCallbacks: EventListener[]=[];
     closeCallbacks: EventListener[]=[];
 
+    isConnected(): boolean {
+        return this.socket && this.socket.readyState == WebSocket.OPEN;
+    }
+
     connect(): void {
-        if (!this.socket) {
+        if (!this.isConnected()) {
             this.socket = new WebSocket('ws://st-chat.shas.tel');
             (window as any).chatSocket = this.socket;
+            (window as any).openChatSocketConnection = () => {
+                this.connect();
+            };
             this.socket.addEventListener('open', (event: Event) => {
                 this.openCallbacks.forEach(callback => {callback(event)});
                 console.info('connection is open');
@@ -44,12 +51,13 @@ class Connection {
         if (this.retries > 0) {
             this.retries--;
             this.socket = null;
-            this.connect();
+            //this.connect();
             console.log('Connection loosed!');
         } else {
             console.log('Could not establish connection...')
         }
     }
+
 }
 
 export const connection = new Connection();

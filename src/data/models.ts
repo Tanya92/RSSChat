@@ -2,6 +2,7 @@ export class State {
     userName: string;
     messages: Message[] = [];
     connected: boolean = false;
+    pendingMessages: SendMessage[] = [];
 
     public constructor(userName: string) {
         this.userName = userName;
