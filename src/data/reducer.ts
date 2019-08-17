@@ -39,7 +39,7 @@ function persistUserName(userName:string):string {
 }
 
 function persistPendingMessages(messages: SendMessage[]) {
-    localStorage.pendingMessages = messages;
+    localStorage.pendingMessages = JSON.stringify(messages);
     return messages;
 }
 
@@ -49,7 +49,7 @@ function clearUserName():string {
 }
 
 function clearPendingMessages():Array<null> {
-    localStorage.pendingMessages = [];
+    localStorage.pendingMessages = "";
     return [];
 }
 
@@ -58,6 +58,17 @@ function getUserName():string {
         return '';
     }
     return localStorage.userName;
+}
+
+function getPendingMessages():SendMessage[] {
+    try {
+        if (!localStorage.pendingMessages) {
+            return [];
+        }
+        return JSON.parse(localStorage.pendingMessages);
+    } catch(e) {
+        return [];
+    }
 }
 
 
@@ -144,4 +155,4 @@ export const reducer = handleActions<State, ActionPayloads>({
         ...state,
         pendingMessages: clearPendingMessages()
     })
-}, new State(getUserName()));
+}, new State(getUserName(), getPendingMessages()));

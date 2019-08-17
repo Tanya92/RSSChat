@@ -4,8 +4,9 @@ export class State {
     connected: boolean = false;
     pendingMessages: SendMessage[] = [];
 
-    public constructor(userName: string) {
+    public constructor(userName: string, pendingMessages:SendMessage[]) {
         this.userName = userName;
+        this.pendingMessages = pendingMessages;
     }
 }
 

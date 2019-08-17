@@ -29,6 +29,10 @@
 
 }
 
+.pending-message {
+    background: rgba(254,147,132,0.99);
+}
+
 .message-time {
     color: #000066;
 }

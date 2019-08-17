@@ -29,7 +29,7 @@ class Window extends React.Component<State & Actions> {
 
     };
 
-    showMessage = (message: Message) => {
+    showMessage = (message: Message, isPendingMessage: boolean = false) => {
         const date = new Date(message.time);
         const options = {
             year: 'numeric', month: 'numeric', day: 'numeric',
@@ -37,9 +37,21 @@ class Window extends React.Component<State & Actions> {
             hour12: false
         };
 
+        let classMessage = "new-message";
+
+        if (isPendingMessage) {
+            classMessage += " pending-message";
+
+        }
+
+        if (this.props.userName === message.from) {
+            classMessage += " my-message";
+        }
+
+
         return (
             <div style={{display: 'flex', justifyContent: this.props.userName === message.from ? 'flex-end': 'flex-start'}} key={message.id}>
-                <div className={this.props.userName === message.from ? "new-message my-message": "new-message"}>
+                <div className={classMessage}>
                     <span className="message-time">{date.toLocaleString('ru-RU', options)}</span>
                     <span className="message-author">
                         {this.props.userName === message.from ? `${message.from} (Me)`: message.from}
@@ -57,7 +69,7 @@ class Window extends React.Component<State & Actions> {
             ...message,
             id: String(index),
             time: Date.now()
-        })
+        }, true)
     };
 
 
@@ -69,7 +81,7 @@ class Window extends React.Component<State & Actions> {
                 >
                     {
                         this.props.messages.
-                            map(this.showMessage).
+                            map(message => this.showMessage(message)).
                             concat(
                                 this.props.pendingMessages.
                                     map(this.showPendingMessage)
